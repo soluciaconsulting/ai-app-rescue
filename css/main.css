@@ -3930,7 +3930,7 @@ a:hover { color: #0066cd; }
 
 .navbar .navbar-brand a.navbar-item:hover { background-color: transparent; }
 
-.navbar .navbar-brand a.navbar-item img { max-height: 3rem; }
+.navbar .navbar-brand a.navbar-item img { max-height: 7rem; }
 
 .navbar .navbar-brand .navbar-burger { height: inherit; }
 
