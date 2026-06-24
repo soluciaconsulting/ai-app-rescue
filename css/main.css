@@ -4493,8 +4493,8 @@ input[name="carousel"] { display: none; }
 
 .mb-logo:hover { background-color: #6495ED; color: #ffffff; transform: translateY(-1px); }
 
-/* --- Narrower navbar container --- */
-.navbar > .container.is-narrow-nav { max-width: 960px; }
+/* --- Navbar container: wide, sits close to the viewport edges --- */
+.navbar > .container.is-narrow-nav { max-width: 1344px; }
 
 /* --- Navbar links: bold, bigger, more spacing --- */
 .navbar-start a.navbar-item { font-weight: 800; font-size: 1.5rem; color: #141c3a; margin: 0 0.6rem; }
@@ -4736,6 +4736,7 @@ a.project-card.box:hover { transform: translateY(-4px); box-shadow: 0 0.6em 1.5e
 
 /* Two-line hero headline: line 2 is the same large size as line 1 */
 .service-hero .hero-body { position: relative; }
+.service-hero .hero-greeting { font-size: clamp(2.75rem, 6.5vw, 5rem) !important; max-width: 1200px; }
 .service-hero .hero-line2 { display: block; margin-top: 0.6rem; color: #141c3a; }
 .service-hero .hero-cta { margin-top: 2rem; }
 

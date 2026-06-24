@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Fixing “new row violates row-level security policy” in Supabase</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="description" content='Learn why Supabase returns this RLS error and how to fix common insert policy, auth, and user_id issues.'>
+  <link rel="canonical" href="https://aiapprescue.com/blog/new-row-violates-row-level-security-policy-supabase.html">
+  <meta property="og:site_name" content="AI App Rescue">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content='Fixing “new row violates row-level security policy” in Supabase'>
+  <meta property="og:description" content='Learn why Supabase returns this RLS error and how to fix common insert policy, auth, and user_id issues.'>
+  <meta property="og:url" content="https://aiapprescue.com/blog/new-row-violates-row-level-security-policy-supabase.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content='Fixing “new row violates row-level security policy” in Supabase'>
+  <meta name="twitter:description" content='Learn why Supabase returns this RLS error and how to fix common insert policy, auth, and user_id issues.'>
+  <meta property="og:image" content="https://aiapprescue.com/img/blog/rls-supabase-cover.svg">
+  <meta name="twitter:image" content="https://aiapprescue.com/img/blog/rls-supabase-cover.svg">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+  <link rel="icon" type="image/x-icon" href="/favicon_io/favicon.ico">
+  <link rel="manifest" href="/favicon_io/site.webmanifest">
+  <link rel="stylesheet" href="/css/main.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/v4-shims.min.css"
+    integrity="sha512-ARfx5eajdcCAuWvuJrgUuJ6D25ON3KZRTCghNXXKeJldCQJ5bXS+6CvG2EhcFWITF95uwZydzpufSKvhmSpTxA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+    <div class="container is-narrow-nav">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/" aria-label="AI App Rescue home">
+          <img src="/img/logos/ai-app-rescue-logo.png" alt="AI App Rescue">
+        </a>
+        <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" data-target="#navMenu">
+          <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></a>
+      </div>
+      <div class="navbar-menu is-shadowless" id="navMenu">
+        <div class="navbar-start">
+          <a class="navbar-item has-text-weight-normal" href="/#process">Process</a>
+          <a class="navbar-item has-text-weight-normal" href="/#what-we-fix">What I Fix</a>
+          <a class="navbar-item has-text-weight-normal" href="/blog/">Blog</a>
+          <a class="navbar-item has-text-weight-normal" href="/#faq">FAQ</a>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <a class="button is-primary is-outlined is-rounded has-text-weight-normal" href="/#contact">
+              Book consultation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section blog-post" style="padding-top:1.5rem;">
+    <div class="container is-narrow" style="max-width:720px;">
+      <header class="blog-post-header" style="text-align:left;margin-bottom:2.5rem;">
+        <h1 class="title is-spaced is-size-2-desktop is-size-3-mobile" style="color:#141c3a;text-align:left;">
+          Fixing “new row violates row-level security policy” in Supabase
+        </h1>
+        <div class="blog-byline"
+          style="display:flex;align-items:center;gap:0.55rem;color:#8a8fa3;font-size:0.95rem;margin-top:0.75rem;">
+          <span style="color:#41476b;font-weight:600;">Matt Brown</span>
+          <span aria-hidden="true">·</span>
+          <span>Jun 24, 2026</span>          <span aria-hidden="true">·</span>
+          <span>Supabase</span>        </div>
+      </header>
+      <figure class="blog-featured-image" style="margin:0 0 2.75rem;">
+        <img src="/img/blog/rls-supabase-cover.svg" alt="Supabase row-level security policy error, fixed"
+          style="display:block;width:100%;height:auto;border-radius:10px;">
+      </figure>
+      <article class="content blog-article">
+<p>If you’ve ever run an <code>insert</code> against Supabase and gotten back this:</p>
+<pre><code>new row violates row-level security policy for table &quot;your_table&quot;</code></pre>
+<p>…you’ve hit Postgres Row Level Security (RLS). It’s not a bug. It’s RLS doing exactly what it’s designed to do: refusing to write a row because no policy explicitly <em>allows</em> that write. The fix is almost always one of a handful of things. Let’s walk through them.</p>
+<h2 id="what-the-error-actually-means">What the error actually means</h2>
+<p>When RLS is enabled on a table, every row that gets inserted, updated, or selected has to pass a policy. If <strong>no policy permits</strong> the operation for the current user, Postgres rejects it. There is no “default allow.” With RLS on and no matching <code>INSERT</code> policy, <em>every</em> insert fails, even from a logged-in user.</p>
+<p>So this error means one of two things:</p>
+<ul>
+<li>There is no <code>INSERT</code> policy on the table at all, or</li>
+<li>There is one, but the row you’re trying to insert doesn’t satisfy its <code>WITH CHECK</code> condition.</li>
+</ul>
+<h2 id="the-30-second-checklist">The 30-second checklist</h2>
+<p>Before diving deep, check these in order. One of them is almost certainly your problem:</p>
+<ol type="1">
+<li>Is RLS enabled but you have <strong>no INSERT policy</strong>? → Add one (below).</li>
+<li>Does your policy compare <code>user_id</code> to <code>auth.uid()</code>, but you’re <strong>not actually sending a user_id</strong>? → Set it.</li>
+<li>Are you actually <strong>logged in</strong> when the request runs? → An expired or missing session makes <code>auth.uid()</code> return <code>null</code>.</li>
+<li>Are you inserting a <code>user_id</code> that <strong>doesn’t match the logged-in user</strong>? → It has to match.</li>
+</ol>
+<h2 id="fix-1-add-an-insert-policy">Fix 1: Add an INSERT policy</h2>
+<p>The most common cause. You enabled RLS (or Supabase enabled it for you) but never wrote a policy that allows inserts. Add one. For a typical table where each row belongs to a user:</p>
+<pre class="sql"><code>-- Make sure RLS is on
+alter table public.posts enable row level security;
+
+-- Allow a logged-in user to insert rows they own
+create policy &quot;Users can insert their own posts&quot;
+on public.posts
+for insert
+to authenticated
+with check ( auth.uid() = user_id );</code></pre>
+<p>The key part is <code>with check</code>. For inserts, that condition is evaluated against the <em>new</em> row. If it’s <code>false</code>, you get the “new row violates” error. Here it’s saying: the <code>user_id</code> on the row must equal the ID of the currently authenticated user.</p>
+<h2 id="fix-2-actually-send-the-user_id">Fix 2: Actually send the user_id</h2>
+<p>If your policy checks <code>auth.uid() = user_id</code> but you never set <code>user_id</code> in the insert, it’ll be <code>null</code>, the check fails, and you get the error. Set it explicitly from the client:</p>
+<pre class="js"><code>const { data: { user } } = await supabase.auth.getUser();
+
+const { error } = await supabase
+  .from(&#39;posts&#39;)
+  .insert({ title: &#39;Hello&#39;, user_id: user.id });</code></pre>
+<p>Better yet, stop relying on the client to send the right value. Default it in the database so it can’t be spoofed or forgotten:</p>
+<pre class="sql"><code>alter table public.posts
+  alter column user_id set default auth.uid();</code></pre>
+<p>Now <code>user_id</code> is filled in automatically with the authenticated user’s ID, and the policy passes without the client having to send anything.</p>
+<h2 id="fix-3-make-sure-youre-actually-authenticated">Fix 3: Make sure you’re actually authenticated</h2>
+<p>If <code>auth.uid()</code> returns <code>null</code>, any policy that depends on it fails. This happens when:</p>
+<ul>
+<li>The user isn’t logged in (no session).</li>
+<li>The session expired and wasn’t refreshed.</li>
+<li>You’re using the <code>anon</code> key from a server context where no user session is attached.</li>
+</ul>
+<p>Confirm there’s a real session before the insert runs:</p>
+<pre class="js"><code>const { data: { session } } = await supabase.auth.getSession();
+console.log(session?.user?.id); // should NOT be null/undefined</code></pre>
+<p>If that’s <code>null</code> on the server (e.g. in a Next.js route handler or edge function), your Supabase client isn’t forwarding the user’s auth token. Use the SSR client (<code>@supabase/ssr</code>) so the request carries the user’s cookies/JWT.</p>
+<h2 id="fix-4-dont-insert-a-user_id-that-isnt-yours">Fix 4: Don’t insert a user_id that isn’t yours</h2>
+<p>If you hardcode or pass a different user’s ID, the <code>with check</code> condition (<code>auth.uid() = user_id</code>) is <code>false</code> and the insert is correctly rejected. This is RLS protecting you. The inserted <code>user_id</code> must match the logged-in user. Let the database default it (Fix 2) and this class of bug disappears.</p>
+<h2 id="fix-5-server-side-writes-that-bypass-rls">Fix 5: Server-side writes that bypass RLS</h2>
+<p>Sometimes you legitimately need to insert rows on behalf of a system — a webhook, a cron job, a Stripe event — where there’s no logged-in user. For those <strong>trusted, server-only</strong> contexts, use the <code>service_role</code> key, which bypasses RLS entirely:</p>
+<pre class="js"><code>// SERVER ONLY. Never expose the service_role key to the browser.
+import { createClient } from &#39;@supabase/supabase-js&#39;;
+
+const admin = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);</code></pre>
+<p><strong>Warning:</strong> the service role key has full read/write access and ignores every policy. It must never ship to the client or live in frontend code. Use it only in trusted server code, and prefer the proper RLS policies above for anything driven by an actual user.</p>
+<h2 id="how-to-debug-it-fast">How to debug it fast</h2>
+<p>In the Supabase dashboard, go to <strong>Authentication → Policies</strong> (or <strong>Database → Policies</strong>) and look at the table. You want to see a policy with the <code>INSERT</code> command whose <code>WITH CHECK</code> matches what you’re inserting. To inspect policies in SQL:</p>
+<pre class="sql"><code>select * from pg_policies where tablename = &#39;posts&#39;;</code></pre>
+<p>Then ask yourself the one question that resolves 90% of these: <em>“Given the row I’m inserting and the user I’m logged in as, does the WITH CHECK condition evaluate to true?”</em> If you can’t answer yes with certainty, that’s your bug.</p>
+<h2 id="still-stuck">Still stuck?</h2>
+<p>RLS is one of those things AI builders enable for you and then leave half-configured — secure-by-default, but broken-by-default. If your Supabase auth and policies are tangled and inserts, logins, or permissions aren’t working the way they should, I fix exactly this kind of thing.</p>
+      </article>
+
+      <div class="has-text-centered">
+        <a class="button is-primary is-rounded is-medium has-text-weight-normal" href="/#contact">
+          <span class="icon"><i class="fa-solid fa-comments"></i></span><span>Get your Supabase issue fixed</span></a>
+      </div>
+
+      <p class="has-text-centered" style="margin-top:1.5rem;">
+        <a href="/blog/" style="color:#6495ED;">&larr; Back to all posts</a>
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer-slim is-primary has-text-centered">
+    <div class="container is-narrow">
+      <div class="social-icons">
+        <p class="field">
+          <a class="button" href="https://www.linkedin.com/in/matthew-brown-44b91017/" target="_blank">
+            <span class="icon is-small"><i class="fab fa-linkedin-in fa-fw"></i></span>
+          </a>
+          <a class="button" href="https://github.com/MattBrown88" target="_blank">
+            <span class="icon is-small"><i class="fa-brands fa-github"></i></span></a>
+          <a class="button" href="mailto:matt@gosolucia.com"><span class="icon is-small"><i
+                class="far fa-envelope fa-fw"></i></span></a>
+        </p>
+      </div>
+      <p class="footer-copy">&copy; <span id="footer-year">2026</span> Matt Brown. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="/js/main-min.js"></script>
+  <script>
+    // Keep the footer copyright year current
+    (function () {
+      var yearEl = document.getElementById('footer-year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+
+</html>
