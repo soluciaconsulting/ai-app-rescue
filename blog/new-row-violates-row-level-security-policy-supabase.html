@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Fixing “new row violates row-level security policy” in Supabase</title>
+  <title>How to Fix “new row violates row-level security policy” in Supabase</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -10,11 +10,11 @@
   <link rel="canonical" href="https://aiapprescue.com/blog/new-row-violates-row-level-security-policy-supabase.html">
   <meta property="og:site_name" content="AI App Rescue">
   <meta property="og:type" content="article">
-  <meta property="og:title" content='Fixing “new row violates row-level security policy” in Supabase'>
+  <meta property="og:title" content='How to Fix “new row violates row-level security policy” in Supabase'>
   <meta property="og:description" content='Learn why Supabase returns this RLS error and how to fix common insert policy, auth, and user_id issues.'>
   <meta property="og:url" content="https://aiapprescue.com/blog/new-row-violates-row-level-security-policy-supabase.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content='Fixing “new row violates row-level security policy” in Supabase'>
+  <meta name="twitter:title" content='How to Fix “new row violates row-level security policy” in Supabase'>
   <meta name="twitter:description" content='Learn why Supabase returns this RLS error and how to fix common insert policy, auth, and user_id issues.'>
   <meta property="og:image" content="https://aiapprescue.com/img/blog/rls-supabase-cover.svg">
   <meta name="twitter:image" content="https://aiapprescue.com/img/blog/rls-supabase-cover.svg">
@@ -65,13 +65,13 @@
     <div class="container is-narrow" style="max-width:720px;">
       <header class="blog-post-header" style="text-align:left;margin-bottom:2.5rem;">
         <h1 class="title is-spaced is-size-2-desktop is-size-3-mobile" style="color:#141c3a;text-align:left;">
-          Fixing “new row violates row-level security policy” in Supabase
+          How to Fix “new row violates row-level security policy” in Supabase
         </h1>
         <div class="blog-byline"
           style="display:flex;align-items:center;gap:0.55rem;color:#8a8fa3;font-size:0.95rem;margin-top:0.75rem;">
           <span style="color:#41476b;font-weight:600;">Matt Brown</span>
           <span aria-hidden="true">·</span>
-          <span>Jun 24, 2026</span>          <span aria-hidden="true">·</span>
+          <span>Jun 25, 2026</span>          <span aria-hidden="true">·</span>
           <span>Supabase</span>        </div>
       </header>
       <figure class="blog-featured-image" style="margin:0 0 2.75rem;">
@@ -79,76 +79,75 @@
           style="display:block;width:100%;height:auto;border-radius:10px;">
       </figure>
       <article class="content blog-article">
-<p>If you’ve ever run an <code>insert</code> against Supabase and gotten back this:</p>
-<pre><code>new row violates row-level security policy for table &quot;your_table&quot;</code></pre>
-<p>…you’ve hit Postgres Row Level Security (RLS). It’s not a bug. It’s RLS doing exactly what it’s designed to do: refusing to write a row because no policy explicitly <em>allows</em> that write. The fix is almost always one of a handful of things. Let’s walk through them.</p>
-<h2 id="what-the-error-actually-means">What the error actually means</h2>
-<p>When RLS is enabled on a table, every row that gets inserted, updated, or selected has to pass a policy. If <strong>no policy permits</strong> the operation for the current user, Postgres rejects it. There is no “default allow.” With RLS on and no matching <code>INSERT</code> policy, <em>every</em> insert fails, even from a logged-in user.</p>
-<p>So this error means one of two things:</p>
-<ul>
-<li>There is no <code>INSERT</code> policy on the table at all, or</li>
-<li>There is one, but the row you’re trying to insert doesn’t satisfy its <code>WITH CHECK</code> condition.</li>
-</ul>
-<h2 id="the-30-second-checklist">The 30-second checklist</h2>
-<p>Before diving deep, check these in order. One of them is almost certainly your problem:</p>
-<ol type="1">
-<li>Is RLS enabled but you have <strong>no INSERT policy</strong>? → Add one (below).</li>
-<li>Does your policy compare <code>user_id</code> to <code>auth.uid()</code>, but you’re <strong>not actually sending a user_id</strong>? → Set it.</li>
-<li>Are you actually <strong>logged in</strong> when the request runs? → An expired or missing session makes <code>auth.uid()</code> return <code>null</code>.</li>
-<li>Are you inserting a <code>user_id</code> that <strong>doesn’t match the logged-in user</strong>? → It has to match.</li>
-</ol>
-<h2 id="fix-1-add-an-insert-policy">Fix 1: Add an INSERT policy</h2>
-<p>The most common cause. You enabled RLS (or Supabase enabled it for you) but never wrote a policy that allows inserts. Add one. For a typical table where each row belongs to a user:</p>
-<pre class="sql"><code>-- Make sure RLS is on
-alter table public.posts enable row level security;
+<p>RLS errors in Supabase can be vague and hard to diagnose.</p>
+<pre><code>new row violates row-level security policy for table &quot;&lt;table_name&gt;&quot;</code></pre>
+<p>What does this even mean??</p>
+<p>These messages come directly from PostgreSQL which returns a generic error for all RLS violations to avoid leaking schema or authorization rules to an attacker.</p>
+<p>Supabase applications generally communicate directly with PostgreSQL from the frontend, so these generic error messages often bubble all the way up to the UI. In a more traditional backend, an API layer would intercept the database error and return a more user-friendly message. Direct database access is a tradeoff of Supabase’s frontend first approach which allows for faster development and less boilerplate code but can make debugging more difficult.</p>
+<h2 id="most-common-issues">Most common issues</h2>
+<h3 id="calling-.select-after-.insert-requires-a-select-policy">Calling <code>.select()</code> after <code>.insert()</code> requires a SELECT policy</h3>
+<p>Here is a simple migration script for a <code>projects</code> table. It creates the table, turns on RLS then allows the user to create a project associated with their <code>user_id</code></p>
+<pre><code>create table projects (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  user_id uuid not null references auth.users
+);
 
--- Allow a logged-in user to insert rows they own
-create policy &quot;Users can insert their own posts&quot;
-on public.posts
+-- Turn on Row Level Security. With RLS enabled and no policy,
+-- ALL access is denied by default.
+alter table projects enable row level security;
+
+-- Allow a user to insert a project only when the row&#39;s user_id
+-- matches the currently authenticated user.
+create policy &quot;Users can create their own projects&quot;
+on projects
 for insert
 to authenticated
-with check ( auth.uid() = user_id );</code></pre>
-<p>The key part is <code>with check</code>. For inserts, that condition is evaluated against the <em>new</em> row. If it’s <code>false</code>, you get the “new row violates” error. Here it’s saying: the <code>user_id</code> on the row must equal the ID of the currently authenticated user.</p>
-<h2 id="fix-2-actually-send-the-user_id">Fix 2: Actually send the user_id</h2>
-<p>If your policy checks <code>auth.uid() = user_id</code> but you never set <code>user_id</code> in the insert, it’ll be <code>null</code>, the check fails, and you get the error. Set it explicitly from the client:</p>
-<pre class="js"><code>const { data: { user } } = await supabase.auth.getUser();
+with check ( (select auth.uid()) = user_id );</code></pre>
+<p>And here’s code to create a new project for that user.</p>
+<pre><code>  const ok = await supabase
+    .from(&#39;projects&#39;)
+    .insert({ name: &#39;My Project&#39;, user_id: user.id })
+    .select();</code></pre>
+<p>This code would fail and return the dreaded <code>new row violates row-level security policy for table "&lt;table_name&gt;"</code></p>
+<p>Why?</p>
+<p>Every operation needs to be allowed by an RLS policy: <code>INSERT</code>, <code>SELECT</code>, <code>UPDATE</code>, and <code>DELETE</code>. Because you chained <code>.select()</code>, PostgreSQL also needs permission to return the newly inserted row. Without the <code>SELECT</code> policy, the entire statement fails and the row is not inserted.</p>
+<p>Adding this policy would fix it</p>
+<pre><code>create policy &quot;Users can select their own projects&quot;
+on projects
+for select
+to authenticated
+using ( (select auth.uid()) = user_id );</code></pre>
+<p>Debugging can be tricky if you don’t know what to look for in the RLS policies.</p>
+<p>Another common cause is inserting a row without the <code>user_id</code> required by the policy.</p>
+<pre><code>  const fail = await supabase.from(&#39;projects&#39;).insert({ name: &#39;My Project&#39; });</code></pre>
+<p>Notice that the <code>user_id</code> associated with the project is missing. The confusing thing is that this would output the same error</p>
+<pre><code>new row violates row-level security policy for table &quot;&lt;table_name&gt;&quot;</code></pre>
+<p>You would fix like this. You need to explicitly include the user_id in the statement because the policy compares <code>auth.uid()</code> to the <code>user_id</code> you provided.</p>
+<pre><code>const { data: { user } } = await supabase.auth.getUser();
 
-const { error } = await supabase
-  .from(&#39;posts&#39;)
-  .insert({ title: &#39;Hello&#39;, user_id: user.id });</code></pre>
-<p>Better yet, stop relying on the client to send the right value. Default it in the database so it can’t be spoofed or forgotten:</p>
-<pre class="sql"><code>alter table public.posts
-  alter column user_id set default auth.uid();</code></pre>
-<p>Now <code>user_id</code> is filled in automatically with the authenticated user’s ID, and the policy passes without the client having to send anything.</p>
-<h2 id="fix-3-make-sure-youre-actually-authenticated">Fix 3: Make sure you’re actually authenticated</h2>
-<p>If <code>auth.uid()</code> returns <code>null</code>, any policy that depends on it fails. This happens when:</p>
-<ul>
-<li>The user isn’t logged in (no session).</li>
-<li>The session expired and wasn’t refreshed.</li>
-<li>You’re using the <code>anon</code> key from a server context where no user session is attached.</li>
-</ul>
-<p>Confirm there’s a real session before the insert runs:</p>
-<pre class="js"><code>const { data: { session } } = await supabase.auth.getSession();
-console.log(session?.user?.id); // should NOT be null/undefined</code></pre>
-<p>If that’s <code>null</code> on the server (e.g. in a Next.js route handler or edge function), your Supabase client isn’t forwarding the user’s auth token. Use the SSR client (<code>@supabase/ssr</code>) so the request carries the user’s cookies/JWT.</p>
-<h2 id="fix-4-dont-insert-a-user_id-that-isnt-yours">Fix 4: Don’t insert a user_id that isn’t yours</h2>
-<p>If you hardcode or pass a different user’s ID, the <code>with check</code> condition (<code>auth.uid() = user_id</code>) is <code>false</code> and the insert is correctly rejected. This is RLS protecting you. The inserted <code>user_id</code> must match the logged-in user. Let the database default it (Fix 2) and this class of bug disappears.</p>
-<h2 id="fix-5-server-side-writes-that-bypass-rls">Fix 5: Server-side writes that bypass RLS</h2>
-<p>Sometimes you legitimately need to insert rows on behalf of a system — a webhook, a cron job, a Stripe event — where there’s no logged-in user. For those <strong>trusted, server-only</strong> contexts, use the <code>service_role</code> key, which bypasses RLS entirely:</p>
-<pre class="js"><code>// SERVER ONLY. Never expose the service_role key to the browser.
-import { createClient } from &#39;@supabase/supabase-js&#39;;
+if (!user) {
+  throw new Error(&#39;User is not logged in&#39;);
+}
 
-const admin = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);</code></pre>
-<p><strong>Warning:</strong> the service role key has full read/write access and ignores every policy. It must never ship to the client or live in frontend code. Use it only in trusted server code, and prefer the proper RLS policies above for anything driven by an actual user.</p>
-<h2 id="how-to-debug-it-fast">How to debug it fast</h2>
-<p>In the Supabase dashboard, go to <strong>Authentication → Policies</strong> (or <strong>Database → Policies</strong>) and look at the table. You want to see a policy with the <code>INSERT</code> command whose <code>WITH CHECK</code> matches what you’re inserting. To inspect policies in SQL:</p>
-<pre class="sql"><code>select * from pg_policies where tablename = &#39;posts&#39;;</code></pre>
-<p>Then ask yourself the one question that resolves 90% of these: <em>“Given the row I’m inserting and the user I’m logged in as, does the WITH CHECK condition evaluate to true?”</em> If you can’t answer yes with certainty, that’s your bug.</p>
-<h2 id="still-stuck">Still stuck?</h2>
-<p>RLS is one of those things AI builders enable for you and then leave half-configured — secure-by-default, but broken-by-default. If your Supabase auth and policies are tangled and inserts, logins, or permissions aren’t working the way they should, I fix exactly this kind of thing.</p>
+await supabase
+  .from(&#39;projects&#39;)
+  .insert({
+    name: &#39;My Project&#39;,
+    user_id: user.id
+  });</code></pre>
+<h2 id="quick-checklist">Quick checklist</h2>
+<p>When you see this error, check:</p>
+<ol type="1">
+<li>Am I calling <code>.select()</code> after <code>.insert()</code>, <code>.update()</code>, or <code>.upsert()</code>?</li>
+<li>Do I have a SELECT policy for the row I’m trying to return?</li>
+<li>Is the user actually logged in?</li>
+<li>Does the row’s <code>user_id</code> match <code>auth.uid()</code>?</li>
+</ol>
+<p>The key is to debug the RLS policies and not just the frontend code.</p>
+<p>You can view the sample repo with the entire example here</p>
+<p>https://github.com/MattBrown88/supabase-new-row-violates-rls-policy.git</p>
+<p>Or watch the video walkthrough here</p>
       </article>
 
       <div class="has-text-centered">
