@@ -4897,3 +4897,12 @@ a.project-card.box:hover { transform: translateY(-4px); box-shadow: 0 0.6em 1.5e
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .has-reveal .reveal-in { opacity: 1 !important; transform: none !important; }
+
+/* Pandoc emits ordered lists with a type attribute (e.g. <ol type="1">),
+   which the .content ol:not([type]) rule above skips, leaving them with no
+   markers. Restore numbering/lettering based on the emitted type. */
+.content ol[type="1"] { list-style-type: decimal; }
+.content ol[type="a"] { list-style-type: lower-alpha; }
+.content ol[type="A"] { list-style-type: upper-alpha; }
+.content ol[type="i"] { list-style-type: lower-roman; }
+.content ol[type="I"] { list-style-type: upper-roman; }

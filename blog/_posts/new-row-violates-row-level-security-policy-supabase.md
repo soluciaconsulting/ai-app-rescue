@@ -7,6 +7,7 @@ summary: "This error means your insert was blocked by Row Level Security. Here's
 image: 'img/blog/rls-supabase-cover.svg'
 image_alt: 'Supabase row-level security policy error, fixed'
 cta: 'Get your Supabase issue fixed'
+
 ---
 
 RLS errors in Supabase can be vague and hard to diagnose. 
@@ -118,7 +119,9 @@ The key is to debug the RLS policies and not just the frontend code.
 
 You can view the sample repo with the entire example here
 
-https://github.com/MattBrown88/supabase-new-row-violates-rls-policy.git
+ [GitHub Repo](https://github.com/MattBrown88/supabase-new-row-violates-rls-policy)
+
+
 
 Or watch the video walkthrough here
 
