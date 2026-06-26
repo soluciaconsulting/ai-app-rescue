@@ -3,9 +3,9 @@ title: 'How to Debug Supabase Edge Functions in VS Code'
 description: 'Step-by-step walkthrough of setting up debugging in VS Code for Supabase'
 date: 'Jun 25, 2026'
 category: Supabase
-summary: "This error means your insert was blocked by Row Level Security. Here's why it happens and how to fix it for good."
-image: 'img/blog/rls-supabase-cover.svg'
-image_alt: 'Supabase row-level security policy error, fixed'
+summary: "Set breakpoints in Supabase Edge Functions and your Vite frontend straight from VS Code — no console.log required. Here's the five-minute setup."
+image: 'img/blog/debug-edge-functions-cover.svg'
+image_alt: 'How to Debug Supabase Edge Functions in VS Code'
 cta: 'Get your Supabase issue fixed'
 
 ---
