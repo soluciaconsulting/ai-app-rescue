@@ -4825,7 +4825,7 @@ a.project-card.box:hover { transform: translateY(-4px); box-shadow: 0 0.6em 1.5e
    ============================================================ */
 
 /* Two-line hero headline: line 2 is the same large size as line 1 */
-.service-hero .hero-body { position: relative; }
+.service-hero .hero-body { position: relative; padding-top: 0; }
 .service-hero .hero-greeting { font-size: clamp(2.75rem, 6.5vw, 5rem) !important; max-width: 1200px; }
 .service-hero .hero-line2 { display: block; margin-top: 0.6rem; color: #141c3a; }
 .service-hero .hero-cta { margin-top: 2rem; }
@@ -4849,12 +4849,23 @@ a.project-card.box:hover { transform: translateY(-4px); box-shadow: 0 0.6em 1.5e
 }
 
 /* Process — three numbered steps */
+.process-eyebrow { color: #6495ED; font-weight: 700; letter-spacing: 1.5px; font-size: 0.85rem; margin-bottom: 0.6rem; text-transform: uppercase; }
 .process-grid { margin-top: 2.5rem; }
 .process-card { background: #ffffff; border: 1px solid #E6ECF8; border-radius: 16px; padding: 2.5rem 1.75rem; height: 100%; text-align: center; transition: box-shadow 0.2s, transform 0.2s; }
 .process-card:hover { transform: translateY(-4px); box-shadow: 0 0.6em 1.5em -0.2em rgba(20, 28, 58, 0.15); }
 .process-step-num { display: inline-flex; align-items: center; justify-content: center; width: 58px; height: 58px; border-radius: 50%; background: #141c3a; color: #ffffff; font-size: 1.5rem; font-weight: 800; margin-bottom: 1.35rem; }
 .process-card h3 { color: #141c3a; font-size: 1.35rem; font-weight: 700; margin-bottom: 0.65rem; }
 .process-card p { color: #41476b; font-size: 1.05rem; }
+/* Rich process cards */
+.process-card-rich { text-align: left; padding: 2rem 1.75rem; }
+.process-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.1rem; }
+.process-step-num-rich { font-size: 2.4rem; font-weight: 800; color: #6495ED; line-height: 1; opacity: 0.85; }
+.process-timeline-badge { display: inline-flex; align-items: center; gap: 0.35em; background: #f0f4ff; color: #41476b; font-size: 0.78rem; font-weight: 600; padding: 0.3em 0.75em; border-radius: 999px; border: 1px solid #dbe3f4; white-space: nowrap; }
+.process-card-rich h3 { color: #141c3a; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.65rem; }
+.process-card-rich p { color: #41476b; font-size: 0.97rem; line-height: 1.65; margin-bottom: 1.25rem; }
+.process-checklist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; border-top: 1px solid #edf0f9; padding-top: 1.1rem; }
+.process-checklist li { display: flex; align-items: center; gap: 0.6em; color: #41476b; font-size: 0.92rem; }
+.process-checklist li::before { content: ""; width: 18px; height: 18px; flex-shrink: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236495ED'%3E%3Ccircle cx='10' cy='10' r='9' stroke='%236495ED' stroke-width='1.5' fill='none'/%3E%3Cpath d='M6 10l3 3 5-5' stroke='%236495ED' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E") center/contain no-repeat; }
 
 /* What we fix — icon cards */
 .fix-grid { margin-top: 2.5rem; }
@@ -4876,6 +4887,29 @@ a.project-card.box:hover { transform: translateY(-4px); box-shadow: 0 0.6em 1.5e
 .contact-box .label { color: #141c3a; font-weight: 600; }
 .contact-box .input, .contact-box .textarea { border-color: #dbe3f4; box-shadow: none; }
 .contact-box .input:focus, .contact-box .textarea:focus { border-color: #6495ED; box-shadow: 0 0 0 0.125em rgba(100, 149, 237, 0.25); }
+
+/* What you get */
+.what-you-get-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 1.4rem; }
+.what-you-get-list li { display: flex; align-items: flex-start; gap: 1rem; }
+.wyg-icon { width: 40px; height: 40px; border-radius: 10px; background: #eef2fd; border: 1px solid #dbe3f4; display: flex; align-items: center; justify-content: center; color: #6495ED; font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+.what-you-get-list strong { display: block; color: #141c3a; font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
+.what-you-get-list p { color: #41476b; font-size: 0.92rem; line-height: 1.55; margin: 0; }
+.wyg-callout { background: linear-gradient(145deg, #141c3a 0%, #1f2d6b 60%, #2a3d8f 100%); border-radius: 18px; padding: 2.5rem; color: #fff; text-align: center; box-shadow: 0 10px 30px rgba(20,28,58,0.18); }
+.wyg-callout-icon { width: 60px; height: 60px; background: rgba(100,149,237,0.2); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: #a8c0f8; margin: 0 auto 1.25rem; }
+.wyg-callout h3 { color: #fff; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; }
+.wyg-callout p { color: rgba(255,255,255,0.7); font-size: 0.97rem; line-height: 1.65; margin: 0; }
+
+/* What to expect timeline */
+.expect-timeline { display: flex; flex-direction: column; gap: 0; text-align: left; }
+.expect-row { display: grid; grid-template-columns: 90px 36px 1fr; gap: 0 1rem; align-items: stretch; }
+.expect-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em; color: #6495ED; background: #eef2fd; border: 1px solid #dbe3f4; border-radius: 999px; padding: 0.25em 0.7em; white-space: nowrap; align-self: start; margin-top: 1.5rem; text-align: center; }
+.expect-dot-col { display: flex; flex-direction: column; align-items: center; }
+.expect-dot { width: 14px; height: 14px; border-radius: 50%; background: #6495ED; flex-shrink: 0; margin-top: 1.65rem; box-shadow: 0 0 0 4px rgba(100,149,237,0.18); }
+.expect-line { flex: 1; width: 2px; background: #dbe3f4; margin: 6px 0; min-height: 1.5rem; }
+.expect-card { background: #fff; border: 1px solid #E6ECF8; border-radius: 14px; padding: 1.4rem 1.6rem; margin: 0.75rem 0 0.75rem; box-shadow: 0 2px 12px rgba(20,28,58,0.05); }
+.expect-card h3 { color: #141c3a; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+.expect-card p { color: #41476b; font-size: 0.95rem; line-height: 1.65; margin: 0; }
+@media screen and (max-width: 768px) { .expect-row { grid-template-columns: 72px 28px 1fr; gap: 0 0.6rem; } .expect-label { font-size: 0.65rem; } }
 
 /* Contact info panel (right side of contact section) */
 .contact-info-panel { background: linear-gradient(145deg, #141c3a 0%, #1f2d6b 60%, #2a3d8f 100%); border-radius: 18px; padding: 2.75rem; color: #fff; height: 100%; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(20, 28, 58, 0.18); }
