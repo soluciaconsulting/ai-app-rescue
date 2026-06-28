@@ -4877,6 +4877,22 @@ a.project-card.box:hover { transform: translateY(-4px); box-shadow: 0 0.6em 1.5e
 .contact-box .input, .contact-box .textarea { border-color: #dbe3f4; box-shadow: none; }
 .contact-box .input:focus, .contact-box .textarea:focus { border-color: #6495ED; box-shadow: 0 0 0 0.125em rgba(100, 149, 237, 0.25); }
 
+/* Contact info panel (right side of contact section) */
+.contact-info-panel { background: linear-gradient(145deg, #141c3a 0%, #1f2d6b 60%, #2a3d8f 100%); border-radius: 18px; padding: 2.75rem; color: #fff; height: 100%; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(20, 28, 58, 0.18); }
+.contact-info-heading { font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+.contact-info-subtext { color: rgba(255,255,255,0.55); font-size: 0.92rem; margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.contact-info-items { display: flex; flex-direction: column; gap: 0.75rem; }
+.contact-info-item { display: flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem 1.1rem; text-decoration: none; transition: background 0.18s, border-color 0.18s, transform 0.18s; }
+.contact-info-item:hover { background: rgba(255,255,255,0.12); border-color: rgba(168,192,248,0.35); transform: translateY(-1px); }
+.contact-info-icon { width: 40px; height: 40px; background: rgba(100,149,237,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; color: #a8c0f8; }
+.contact-info-label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.45); font-weight: 600; margin-bottom: 0.15rem; }
+.contact-info-value { display: block; color: #fff; font-size: 0.98rem; font-weight: 500; }
+.contact-info-arrow { margin-left: auto; color: rgba(255,255,255,0.3); font-size: 0.8rem; flex-shrink: 0; }
+.contact-info-item:hover .contact-info-arrow { color: rgba(168,192,248,0.8); }
+.contact-info-note { margin-top: 1.5rem; padding: 0.9rem 1.1rem; background: rgba(100,149,237,0.12); border-radius: 10px; font-size: 0.88rem; color: rgba(255,255,255,0.8); border: 1px solid rgba(100,149,237,0.25); display: flex; align-items: center; gap: 0.5rem; }
+.contact-info-note strong { color: #a8c0f8; }
+@media screen and (max-width: 768px) { .contact-info-panel { padding: 1.75rem; margin-top: 1.5rem; } }
+
 /* FAQ accordion */
 .faq-list { max-width: 780px; margin: 2.5rem auto 0; text-align: left; }
 .faq-item { background: #ffffff; border: 1px solid #E6ECF8; border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }

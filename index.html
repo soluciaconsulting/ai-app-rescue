@@ -41,7 +41,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <script async="" src="https://cdn.splitbee.io/sb.js"></script>
-  <script src="//code.tidio.co/erdfiawdilyspfrmy70hfby9ltl6dmop.js" async></script>
+  <!-- Crisp Chat Widget -->
+    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="03b4e80e-de78-40b8-a1ee-927b40a363fd";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </head>
 
 <body>
@@ -90,7 +91,7 @@
               Your idea already works. Let's make it bulletproof.
             </p>
             <div class="buttons is-centered hero-cta">
-              <a class="button is-primary is-rounded is-medium has-text-weight-normal" href="#contact">
+              <a class="button is-primary is-rounded is-medium has-text-weight-normal" href="#" onclick="if(window.tidioChatApi){window.tidioChatApi.open();}else{document.getElementById('tidio-chat-iframe') && document.getElementById('tidio-chat-iframe').contentWindow.postMessage('open','*');}return false;">
                 <span class="icon"><i class="fa-solid fa-comments"></i></span><span>Have a chat with us now</span></a>
               <a class="button is-primary is-outlined is-rounded is-medium has-text-weight-normal"
                 href="https://calendly.com/matt-1176/15-min-ai-app-rescue-consultation" target="_blank">
@@ -303,26 +304,23 @@
       <div class="columns is-centered">
         <div class="column is-one-third">
           <div class="testimonial-card">
-            <p class="quote">“I built my whole MVP in Lovable and hit a wall when nothing would deploy. Matt jumped in,
-              found the issues in an afternoon, and had us live within the week. Total lifesaver.”</p>
-            <h3 class="testimonial-name">Jordan M.</h3>
-            <p class="testimonial-role">Non-technical Founder</p>
+            <p class="quote">“Matt has worked with my team for nearly two years on a project that morphed and grew over our time together. He is a great team player with strong technical skills as well as communication and time management skills. We have been very satisfied with his work and have since hired him for an additional project.”</p>
+            <h3 class="testimonial-name">Taya</h3>
+            <p class="testimonial-role">Healthcare Executive</p>
           </div>
         </div>
         <div class="column is-one-third">
           <div class="testimonial-card">
-            <p class="quote">“Our Supabase setup was a security nightmare and our auth kept logging people into the
-              wrong accounts. Matt rebuilt it properly and explained everything along the way. Worth every penny.”</p>
-            <h3 class="testimonial-name">Priya S.</h3>
-            <p class="testimonial-role">SaaS Startup</p>
+            <p class="quote">“This is the most professional tool that I have seen at this organization.”</p>
+            <h3 class="testimonial-name">Dan</h3>
+            <p class="testimonial-role">VP, Clinical Evaluation</p>
           </div>
         </div>
         <div class="column is-one-third">
           <div class="testimonial-card">
-            <p class="quote">“ChatGPT got us 80% there and then we were completely stuck. Matt is an actual engineer.
-              He fixed the backend, sped everything up, and made it something we can actually maintain.”</p>
-            <h3 class="testimonial-name">Devon K.</h3>
-            <p class="testimonial-role">Agency Owner</p>
+            <p class="quote">“This was one of the most impressive systems I've seen in my 21-year career.”</p>
+            <h3 class="testimonial-name">David</h3>
+            <p class="testimonial-role">Senior Developer</p>
           </div>
         </div>
       </div>
@@ -330,28 +328,19 @@
   </section>
 
   <!-- Contact form -->
-  <section id="contact" class="section is-medium has-text-centered has-border-top" style="background:#f7f9fd;">
+  <section id="contact" class="section is-medium has-border-top" style="background:#f7f9fd;">
     <div class="container is-narrow">
-      <div class="columns is-centered">
-        <div class="column is-three-fifths">
+      <div class="columns is-centered" style="margin-bottom:2rem;">
+        <div class="column is-three-fifths has-text-centered">
           <h1 class="title is-spaced is-size-3-desktop is-size-4-mobile" style="color:#141c3a">Tell me about your app</h1>
           <h2 class="subtitle is-size-5-desktop has-text-weight-normal" style="color:#41476b">
-            Book a free 15-minute consultation right now, or fill out the form and I'll get back to you.
+            Fill out the form or reach out directly — I'll get back to you fast.
           </h2>
         </div>
       </div>
-      <div class="columns is-centered">
-        <div class="column is-two-thirds has-text-centered">
-          <a class="button is-primary is-rounded is-medium has-text-weight-normal"
-            href="https://calendly.com/matt-1176/15-min-ai-app-rescue-consultation" target="_blank">
-            <span class="icon"><i class="fa-regular fa-calendar-check"></i></span><span>Book a 15-min consultation
-              now</span></a>
-          <p class="contact-or">or fill out the form below</p>
-        </div>
-      </div>
-      <div class="columns is-centered">
-        <div class="column is-two-thirds">
-          <!-- Replace YOUR_FORM_ID with your Formspree form ID (formspree.io) to receive submissions by email -->
+      <div class="columns is-centered is-variable is-6">
+        <!-- Left: form -->
+        <div class="column is-half">
           <form class="contact-box" action="https://formspree.io/f/mwvdvnza" method="POST">
             <div class="field">
               <label class="label" for="name">Name</label>
@@ -388,11 +377,44 @@
                 </button>
               </div>
             </div>
-            <p class="has-text-centered" style="color:#7a82a3;font-size:0.9rem;margin-top:1rem;">
-              Prefer email? Reach out at <a href="mailto:matt@gosolucia.com"
-                style="color:#6495ED;">matt@gosolucia.com</a>
-            </p>
           </form>
+        </div>
+        <!-- Right: contact info -->
+        <div class="column is-half">
+          <div class="contact-info-panel">
+            <h3 class="contact-info-heading">Get in touch</h3>
+            <p class="contact-info-subtext">Prefer to reach out directly? Here's how to find me.</p>
+            <div class="contact-info-items">
+              <a href="mailto:matt@gosolucia.com" class="contact-info-item">
+                <span class="contact-info-icon"><i class="fa-solid fa-envelope"></i></span>
+                <div>
+                  <span class="contact-info-label">Email</span>
+                  <span class="contact-info-value">matt@gosolucia.com</span>
+                </div>
+                <i class="fa-solid fa-chevron-right contact-info-arrow"></i>
+              </a>
+              <a href="tel:+15635708240" class="contact-info-item">
+                <span class="contact-info-icon"><i class="fa-solid fa-phone"></i></span>
+                <div>
+                  <span class="contact-info-label">Phone</span>
+                  <span class="contact-info-value">+1 563 570 8240</span>
+                </div>
+                <i class="fa-solid fa-chevron-right contact-info-arrow"></i>
+              </a>
+              <a href="https://calendly.com/matt-1176/15-min-ai-app-rescue-consultation" target="_blank" class="contact-info-item">
+                <span class="contact-info-icon"><i class="fa-regular fa-calendar-check"></i></span>
+                <div>
+                  <span class="contact-info-label">Free consultation</span>
+                  <span class="contact-info-value">Book a 15-min call</span>
+                </div>
+                <i class="fa-solid fa-chevron-right contact-info-arrow"></i>
+              </a>
+            </div>
+            <div class="contact-info-note">
+              <i class="fa-solid fa-bolt"></i>
+              Typical response time: <strong>under 2 hours</strong>
+            </div>
+          </div>
         </div>
       </div>
     </div>
