@@ -4927,6 +4927,12 @@ a.project-card.box:hover { transform: translateY(-4px); box-shadow: 0 0.6em 1.5e
 .contact-info-note strong { color: #a8c0f8; }
 @media screen and (max-width: 768px) { .contact-info-panel { padding: 1.75rem; margin-top: 1.5rem; } }
 
+/* What I Fix pill row */
+.fix-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.65rem; }
+.fix-pill { display: inline-flex; align-items: center; gap: 0.45rem; background: #fff; border: 1.5px solid #dbe3f4; border-radius: 999px; padding: 0.5em 1.1em; font-size: 0.95rem; font-weight: 600; color: #141c3a; transition: border-color 0.18s, box-shadow 0.18s, color 0.18s; }
+.fix-pill i { color: #6495ED; font-size: 0.88rem; }
+.fix-pill:hover { border-color: #6495ED; box-shadow: 0 2px 12px rgba(100,149,237,0.15); color: #6495ED; }
+
 /* FAQ accordion */
 .faq-list { max-width: 780px; margin: 2.5rem auto 0; text-align: left; }
 .faq-item { background: #ffffff; border: 1px solid #E6ECF8; border-radius: 12px; margin-bottom: 1rem; overflow: hidden; }
@@ -4939,7 +4945,7 @@ a.project-card.box:hover { transform: translateY(-4px); box-shadow: 0 0.6em 1.5e
 /* Reveal animation hooks for the service page */
 .has-reveal .tool-marquee,
 .has-reveal .process-card,
-.has-reveal .fix-card,
+.has-reveal .fix-pill,
 .has-reveal .contact-box,
 .has-reveal .faq-item {
   opacity: 0;

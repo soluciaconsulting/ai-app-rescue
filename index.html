@@ -42,7 +42,7 @@
 
   <script async="" src="https://cdn.splitbee.io/sb.js"></script>
   <!-- Crisp Chat Widget -->
-    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="03b4e80e-de78-40b8-a1ee-927b40a363fd";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+  <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="03b4e80e-de78-40b8-a1ee-927b40a363fd";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </head>
 
 <body>
@@ -58,7 +58,6 @@
       <div class="navbar-menu is-shadowless" id="navMenu">
         <div class="navbar-start">
           <a class="navbar-item has-text-weight-normal" href="#process">Process</a>
-          <a class="navbar-item has-text-weight-normal" href="#what-we-fix">What I Fix</a>
           <a class="navbar-item has-text-weight-normal" href="/blog/">Blog</a>
           <a class="navbar-item has-text-weight-normal" href="#faq">FAQ</a>
         </div>
@@ -72,6 +71,7 @@
     </div>
   </nav>
 
+  <!-- Hero -->
   <section class="hero service-hero is-white has-text-centered">
     <div class="hero-body">
       <div class="container">
@@ -81,21 +81,13 @@
               AI App Rescue
               <span style="color:#6495ED" class="hero-line2">We fix vibe-coded apps <span style="color:#6495ED">fast</span>.</span>
             </h1>
-            <p class="subtitle is-size-5-desktop has-text-weight-normal" style="max-width:760px;color:#41476b;">
-              You've built something genuinely useful with AI-assisted development, and your users love it. But as it
-              grows, you're hitting bugs, authentication issues, database problems, and deployment failures. That's the
-              point where real software engineering starts to matter.
-            </p>
-            <p class="subtitle is-size-5-desktop has-text-weight-semibold hero-tagline"
-              style="max-width:760px;color:#141c3a;">
-              Your idea already works. Let's make it bulletproof.
+            <p class="subtitle is-size-5-desktop has-text-weight-normal" style="max-width:640px;color:#41476b;">
+              You built something real with AI. Now it's breaking. Let's fix it.
             </p>
             <div class="buttons is-centered hero-cta">
-              <a class="button is-primary is-rounded is-medium has-text-weight-normal" href="#" onclick="if(window.tidioChatApi){window.tidioChatApi.open();}else{document.getElementById('tidio-chat-iframe') && document.getElementById('tidio-chat-iframe').contentWindow.postMessage('open','*');}return false;">
-                <span class="icon"><i class="fa-solid fa-comments"></i></span><span>Have a chat with us now</span></a>
-              <a class="button is-primary is-outlined is-rounded is-medium has-text-weight-normal"
+              <a class="button is-primary is-rounded is-medium has-text-weight-normal"
                 href="https://calendly.com/matt-1176/15-min-ai-app-rescue-consultation" target="_blank">
-                <span class="icon"><i class="fa-regular fa-calendar-check"></i></span><span>Book consultation</span></a>
+                <span class="icon"><i class="fa-regular fa-calendar-check"></i></span><span>Book a free 15-min call</span></a>
             </div>
             <div class="tool-marquee" style="width:100%;">
               <div class="tool-track">
@@ -142,12 +134,12 @@
                 <span class="process-step-num-rich">01</span>
                 <span class="process-timeline-badge"><i class="fa-regular fa-clock"></i> Day 1</span>
               </div>
-              <h3>Human Audit</h3>
-              <p>We review your entire codebase end-to-end — auth, database, APIs, deployment config, and security. Every bug, bottleneck, and risk is mapped and prioritised.</p>
+              <h3>Book a Free 15-Min Call</h3>
+              <p>You tell me what's going wrong. I ask the right questions. No prep needed — bring whatever you have. By the end you'll know exactly what I can do for you.</p>
               <ul class="process-checklist">
-                <li>Codebase & auth reviewed end-to-end</li>
-                <li>Prioritised fix list delivered</li>
-                <li>No commitment to proceed required</li>
+                <li>No prep required</li>
+                <li>No commitment to proceed</li>
+                <li>I'll tell you if I can help</li>
               </ul>
             </div>
           </div>
@@ -155,14 +147,14 @@
             <div class="process-card process-card-rich">
               <div class="process-card-header">
                 <span class="process-step-num-rich">02</span>
-                <span class="process-timeline-badge"><i class="fa-regular fa-clock"></i> Days 2–5</span>
+                <span class="process-timeline-badge"><i class="fa-regular fa-clock"></i> Days 1–2</span>
               </div>
-              <h3>Fix & Stabilise</h3>
-              <p>We resolve the critical issues — broken auth, failing APIs, slow queries, hallucinations, and RAG accuracy problems. Every fix is tested before it ships so you don't trade one problem for another.</p>
+              <h3>Audit &amp; Fixed-Price Quote</h3>
+              <p>I dig through your codebase, auth setup, database schema, and deployment config. Every bug, bottleneck, and security risk is logged and prioritised. You get a clear fix plan with a fixed price — no hourly surprises.</p>
               <ul class="process-checklist">
-                <li>Auth, database & API issues resolved</li>
-                <li>Hallucination & RAG accuracy fixes</li>
-                <li>Each fix tested before deploy</li>
+                <li>Full codebase review</li>
+                <li>Prioritised issue list delivered</li>
+                <li>Fixed-price quote before any work starts</li>
               </ul>
             </div>
           </div>
@@ -170,209 +162,71 @@
             <div class="process-card process-card-rich">
               <div class="process-card-header">
                 <span class="process-step-num-rich">03</span>
-                <span class="process-timeline-badge"><i class="fa-regular fa-clock"></i> Ongoing</span>
+                <span class="process-timeline-badge"><i class="fa-regular fa-clock"></i> Days 2–7</span>
               </div>
-              <h3>Keep It Running</h3>
-              <p>Once your app is stable, we can stay on as your dedicated engineering team — handling new features, monitoring for issues, and making sure your app keeps pace as you grow.</p>
+              <h3>Fix &amp; Stabilise</h3>
+              <p>I resolve the critical issues — broken auth, failing APIs, slow queries, deployment errors. Each fix is tested before it ships so you don't trade one problem for another.</p>
               <ul class="process-checklist">
-                <li>Proactive monitoring & alerting</li>
-                <li>New features built & shipped fast</li>
-                <li>We know your codebase inside out</li>
+                <li>Auth, database &amp; API issues resolved</li>
+                <li>Each fix tested before deploy</li>
+                <li>Handed back clean and documented</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      <a class="button is-primary is-rounded is-medium has-text-weight-normal" href="#contact" style="margin-top:1rem;">
-        <span>Get started</span><span class="icon"><i class="fa-solid fa-arrow-right"></i></span></a>
-    </div>
-  </section>
-
-  <!-- What to expect timeline
-  <section id="what-to-expect" class="section is-medium is-white has-text-centered has-border-top">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-four-fifths has-text-left">
-          <p class="process-eyebrow">WHAT TO EXPECT</p>
-          <h1 class="title is-spaced is-size-3-desktop is-size-4-mobile" style="color:#141c3a">What happens after you reach out?</h1>
-        </div>
-      </div>
-      <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          <div class="expect-timeline">
-
-            <div class="expect-row">
-              <div class="expect-label">DAY 1</div>
-              <div class="expect-dot-col">
-                <div class="expect-dot"></div>
-                <div class="expect-line"></div>
-              </div>
-              <div class="expect-card">
-                <h3>Free Consultation Call</h3>
-                <p>We hop on a quick call so I can understand your app, see the issues firsthand, and ask the right questions. No prep needed — bring whatever you have.</p>
-              </div>
-            </div>
-
-            <div class="expect-row">
-              <div class="expect-label">DAYS 1–2</div>
-              <div class="expect-dot-col">
-                <div class="expect-dot"></div>
-                <div class="expect-line"></div>
-              </div>
-              <div class="expect-card">
-                <h3>Code & Infrastructure Review</h3>
-                <p>I dig through your codebase, auth setup, database schema, and deployment config. Every bug, bottleneck, and security risk is logged and prioritised.</p>
-              </div>
-            </div>
-
-            <div class="expect-row">
-              <div class="expect-label">DAY 2–3</div>
-              <div class="expect-dot-col">
-                <div class="expect-dot"></div>
-                <div class="expect-line"></div>
-              </div>
-              <div class="expect-card">
-                <h3>Fix Plan & Quote Delivered</h3>
-                <p>You receive a clear breakdown of every issue found, how I'll fix it, and a fixed-price quote. No hourly billing, no vague estimates. No commitment required to proceed.</p>
-              </div>
-            </div>
-
-            <div class="expect-row">
-              <div class="expect-label">DAYS 3–7</div>
-              <div class="expect-dot-col">
-                <div class="expect-dot"></div>
-                <div class="expect-line"></div>
-              </div>
-              <div class="expect-card">
-                <h3>Fix & Deploy</h3>
-                <p>I resolve the critical issues — broken auth, failing APIs, slow queries, deployment errors. Each fix is tested before it goes live so you don't trade one problem for another.</p>
-              </div>
-            </div>
-
-            <div class="expect-row">
-              <div class="expect-label">MONTH 1+</div>
-              <div class="expect-dot-col">
-                <div class="expect-dot"></div>
-              </div>
-              <div class="expect-card">
-                <h3>Ongoing Support <span style="font-weight:400;font-size:0.9em;color:#7a82a3;">(Optional)</span></h3>
-                <p>Once stable, I can stay on as your dedicated engineer — shipping new features, monitoring for issues, and keeping everything running as you grow.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
-
-  <!-- What you get -->
-  <section class="section is-medium has-border-top" style="background:#f7f9fd;">
-    <div class="container">
-      <div class="columns is-centered is-variable is-8 is-vcentered">
-        <div class="column is-half">
-          <p class="process-eyebrow">WHAT YOU GET</p>
-          <h1 class="title is-spaced is-size-3-desktop is-size-4-mobile" style="color:#141c3a">Everything you need to make a clear decision</h1>
-          <p style="color:#41476b;font-size:1.05rem;margin-bottom:2rem;">After the audit you'll know exactly where your app stands — no guesswork, no vague recommendations.</p>
-          <ul class="what-you-get-list">
-            <li>
-              <span class="wyg-icon"><i class="fa-solid fa-diagram-project"></i></span>
-              <div><strong>System & workflow map</strong><p>A clear picture of how your app is built and how data flows through it.</p></div>
-            </li>
-            <li>
-              <span class="wyg-icon"><i class="fa-solid fa-shield-halved"></i></span>
-              <div><strong>Risk & ownership review</strong><p>Every vulnerability, dependency risk, and ownership gap surfaced and explained.</p></div>
-            </li>
-            <li>
-              <span class="wyg-icon"><i class="fa-solid fa-list-check"></i></span>
-              <div><strong>Keep, fix, stop, or rebuild</strong><p>A short, opinionated list of what to do with each part of your stack.</p></div>
-            </li>
-            <li>
-              <span class="wyg-icon"><i class="fa-solid fa-calendar-days"></i></span>
-              <div><strong>30-day next-step plan</strong><p>A practical, prioritised roadmap you can act on immediately.</p></div>
-            </li>
-            <li>
-              <span class="wyg-icon"><i class="fa-solid fa-wrench"></i></span>
-              <div><strong>Build or cleanup proposal</strong><p>If there's a clear path forward, we'll include an optional proposal to get it done.</p></div>
-            </li>
-          </ul>
-        </div>
-        <div class="column is-half">
-          <div class="wyg-callout">
-            <div class="wyg-callout-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-            <h3>Full audit. No commitment.</h3>
-            <p>You get the complete picture before deciding whether to proceed. Most clients say the audit alone was worth it.</p>
-            <a class="button is-primary is-rounded is-medium has-text-weight-normal" href="#contact" style="margin-top:1.5rem;width:100%;">
-              <span class="icon"><i class="fa-solid fa-paper-plane"></i></span><span>Request your audit</span>
-            </a>
-          </div>
-        </div>
+      <a class="button is-primary is-rounded is-medium has-text-weight-normal"
+        href="https://calendly.com/matt-1176/15-min-ai-app-rescue-consultation" target="_blank" style="margin-top:1rem;">
+        <span class="icon"><i class="fa-regular fa-calendar-check"></i></span><span>Book a free 15-min call</span></a>
+      <div class="fix-pills" style="margin-top:2rem;">
+        <span class="fix-pill"><i class="fa-solid fa-gauge-high"></i> Slow performance</span>
+        <span class="fix-pill"><i class="fa-solid fa-lock"></i> Auth problems</span>
+        <span class="fix-pill"><i class="fa-solid fa-plug"></i> Broken integrations</span>
+        <span class="fix-pill"><i class="fa-solid fa-window-maximize"></i> Frontend errors</span>
+        <span class="fix-pill"><i class="fa-solid fa-server"></i> Backend errors</span>
+        <span class="fix-pill"><i class="fa-solid fa-rocket"></i> Deployment issues</span>
       </div>
     </div>
   </section>
 
-  <!-- What we fix -->
-  <section id="what-we-fix" class="section is-medium is-white has-text-centered has-border-top">
+  <!-- Blog -->
+  <section class="section is-medium has-text-centered has-border-top" style="background:#f7f9fd;">
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-fifths">
-          <h1 class="title is-spaced is-size-3-desktop is-size-4-mobile" style="color:#141c3a">What I fix</h1>
-          <h2 class="subtitle is-size-5-desktop has-text-weight-normal" style="color:#41476b">
-            The things AI builders get 80% of the way, and then leave broken.
-          </h2>
+          <p class="process-eyebrow">FROM THE BLOG</p>
+          <h1 class="title is-spaced is-size-3-desktop is-size-4-mobile" style="color:#141c3a">Practical fixes for common problems</h1>
         </div>
       </div>
-      <div class="fix-grid">
-        <div class="columns is-multiline is-centered">
-          <div class="column is-half-tablet is-one-third-desktop">
-            <div class="fix-card">
-              <div class="fix-icon"><i class="fa-solid fa-gauge-high"></i></div>
-              <h3>Slow performance</h3>
-              <p>Pages that crawl, laggy queries, and apps that buckle under real traffic. I find the bottlenecks and
-                make it fast.</p>
+      <div class="columns is-centered blog-grid" style="margin-top:1rem;">
+        <div class="column is-one-third-desktop is-half-tablet">
+          <a class="blog-card" href="/blog/how-to-debug-supabase-edge-functions-directly-in-vs-code.html">
+            <div class="blog-card-cover">
+              <span class="blog-card-brand"><i class="fa-solid fa-screwdriver-wrench"></i> AI App Rescue</span>
+              <span class="blog-card-cover-title">Debug Supabase Edge Functions in VS Code</span>
             </div>
-          </div>
-          <div class="column is-half-tablet is-one-third-desktop">
-            <div class="fix-card">
-              <div class="fix-icon"><i class="fa-solid fa-window-maximize"></i></div>
-              <h3>Frontend errors</h3>
-              <p>Broken layouts, buttons that do nothing, console errors, and UI that falls apart on mobile or in
-                production.</p>
+            <div class="blog-card-body">
+              <p class="blog-card-excerpt">Skip the console logs. Set breakpoints in your Supabase Edge Functions and Vite frontend directly from VS Code in about five minutes.</p>
+              <span class="blog-card-more">Read More <i class="fa-solid fa-arrow-right"></i></span>
             </div>
-          </div>
-          <div class="column is-half-tablet is-one-third-desktop">
-            <div class="fix-card">
-              <div class="fix-icon"><i class="fa-solid fa-server"></i></div>
-              <h3>Backend errors</h3>
-              <p>Failing API calls, database errors, broken edge functions, and logic that works locally but crashes
-                live.</p>
+          </a>
+        </div>
+        <div class="column is-one-third-desktop is-half-tablet">
+          <a class="blog-card" href="/blog/new-row-violates-row-level-security-policy-supabase.html">
+            <div class="blog-card-cover">
+              <span class="blog-card-brand"><i class="fa-solid fa-screwdriver-wrench"></i> AI App Rescue</span>
+              <span class="blog-card-cover-title">Fix "new row violates row-level security policy"</span>
             </div>
-          </div>
-          <div class="column is-half-tablet is-one-third-desktop">
-            <div class="fix-card">
-              <div class="fix-icon"><i class="fa-solid fa-lock"></i></div>
-              <h3>Auth problems</h3>
-              <p>Logins that won't stick, exposed data, and insecure permissions. I make sign-in and access control work
-                the right way.</p>
+            <div class="blog-card-body">
+              <p class="blog-card-excerpt">This error means your insert was blocked by Row Level Security. Here's why it happens and how to fix it for good.</p>
+              <span class="blog-card-more">Read More <i class="fa-solid fa-arrow-right"></i></span>
             </div>
-          </div>
-          <div class="column is-half-tablet is-one-third-desktop">
-            <div class="fix-card">
-              <div class="fix-icon"><i class="fa-solid fa-plug"></i></div>
-              <h3>Third-party integrations</h3>
-              <p>Stripe payments, email, webhooks, and external APIs that aren't connecting or are silently failing.</p>
-            </div>
-          </div>
-          <div class="column is-half-tablet is-one-third-desktop">
-            <div class="fix-card">
-              <div class="fix-icon"><i class="fa-solid fa-rocket"></i></div>
-              <h3>Deployment &amp; everything else</h3>
-              <p>Won't build, won't deploy, or it's a mess no one understands. Architecture cleanup, security, and
-                getting you live.</p>
-            </div>
-          </div>
+          </a>
         </div>
       </div>
+      <a class="button is-primary is-outlined is-rounded is-medium has-text-weight-normal" href="/blog/" style="margin-top:2rem;">
+        <span>View all posts</span><span class="icon"><i class="fa-solid fa-arrow-right"></i></span>
+      </a>
     </div>
   </section>
 
@@ -383,21 +237,21 @@
       <div class="columns is-centered">
         <div class="column is-one-third">
           <div class="testimonial-card">
-            <p class="quote">“Matt has worked with my team for nearly two years on a project that morphed and grew over our time together. He is a great team player with strong technical skills as well as communication and time management skills. We have been very satisfied with his work and have since hired him for an additional project.”</p>
+            <p class="quote">"Matt has worked with my team for nearly two years on a project that morphed and grew over our time together. He is a great team player with strong technical skills as well as communication and time management skills. We have been very satisfied with his work and have since hired him for an additional project."</p>
             <h3 class="testimonial-name">Taya</h3>
             <p class="testimonial-role">Healthcare Executive</p>
           </div>
         </div>
         <div class="column is-one-third">
           <div class="testimonial-card">
-            <p class="quote">“This is the most professional tool that I have seen at this organization.”</p>
+            <p class="quote">"This is the most professional tool that I have seen at this organization."</p>
             <h3 class="testimonial-name">Dan</h3>
             <p class="testimonial-role">VP, Clinical Evaluation</p>
           </div>
         </div>
         <div class="column is-one-third">
           <div class="testimonial-card">
-            <p class="quote">“This was one of the most impressive systems I've seen in my 21-year career.”</p>
+            <p class="quote">"This was one of the most impressive systems I've seen in my 21-year career."</p>
             <h3 class="testimonial-name">David</h3>
             <p class="testimonial-role">Senior Developer</p>
           </div>
@@ -406,94 +260,21 @@
     </div>
   </section>
 
-  <!-- Contact form -->
-  <section id="contact" class="section is-medium has-border-top" style="background:#f7f9fd;">
-    <div class="container is-narrow">
-      <div class="columns is-centered" style="margin-bottom:2rem;">
-        <div class="column is-three-fifths has-text-centered">
-          <h1 class="title is-spaced is-size-3-desktop is-size-4-mobile" style="color:#141c3a">Tell me about your app</h1>
-          <h2 class="subtitle is-size-5-desktop has-text-weight-normal" style="color:#41476b">
-            Fill out the form or reach out directly — I'll get back to you fast.
+  <!-- About / expertise -->
+  <section class="section about-section is-medium has-text-centered has-border-top">
+    <div class="container">
+      <h1 class="title is-spaced is-size-3-desktop is-size-4-mobile" style="color:#141c3a">Why Me</h1>
+      <div class="columns is-centered is-vcentered" style="margin-top:1.5rem;">
+        <div class="column is-narrow has-text-centered">
+          <img class="hero-headshot" src="img/linkedinprofile2.png" alt="Matt Brown">
+        </div>
+        <div class="column is-half has-text-left">
+          <h2 class="subtitle is-size-5-desktop has-text-weight-normal about-intro">
+            I'm Matt Brown, a software engineer with 10+ years of experience designing and building production software.
+            I've shipped enterprise analytics platforms, data pipelines, Shopify apps, and Chrome extensions for teams
+            across healthcare, insurance, and e-commerce. AI tools are great for getting started, but I'm who you call
+            when the app needs to actually work, scale, and stay secure.
           </h2>
-        </div>
-      </div>
-      <div class="columns is-centered is-variable is-6">
-        <!-- Left: form -->
-        <div class="column is-half">
-          <form class="contact-box" action="https://formspree.io/f/mwvdvnza" method="POST">
-            <div class="field">
-              <label class="label" for="name">Name</label>
-              <div class="control">
-                <input class="input" id="name" name="name" type="text" placeholder="Your name" required>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label" for="email">Email</label>
-              <div class="control">
-                <input class="input" id="email" name="email" type="email" placeholder="you@company.com" required>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label" for="tool">Which tool did you build with?</label>
-              <div class="control">
-                <input class="input" id="tool" name="tool"
-                  type="text" placeholder="Bolt.new, Lovable, ChatGPT, Replit, Cursor, Supabase…">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label" for="problem">What's going wrong?</label>
-              <div class="control">
-                <textarea class="textarea" id="problem" name="problem" rows="5"
-                  placeholder="Tell me what your app does and what's broken. Error messages and links welcome."
-                  required></textarea>
-              </div>
-            </div>
-            <div class="field" style="margin-top:1.75rem;">
-              <div class="control">
-                <button class="button is-primary is-rounded is-medium has-text-weight-normal" type="submit"
-                  style="width:100%;">
-                  <span class="icon"><i class="fa-solid fa-paper-plane"></i></span><span>Get started</span>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-        <!-- Right: contact info -->
-        <div class="column is-half">
-          <div class="contact-info-panel">
-            <h3 class="contact-info-heading">Get in touch</h3>
-            <p class="contact-info-subtext">Prefer to reach out directly? Here's how to find me.</p>
-            <div class="contact-info-items">
-              <a href="mailto:matt@gosolucia.com" class="contact-info-item">
-                <span class="contact-info-icon"><i class="fa-solid fa-envelope"></i></span>
-                <div>
-                  <span class="contact-info-label">Email</span>
-                  <span class="contact-info-value">matt@gosolucia.com</span>
-                </div>
-                <i class="fa-solid fa-chevron-right contact-info-arrow"></i>
-              </a>
-              <a href="tel:+15635708240" class="contact-info-item">
-                <span class="contact-info-icon"><i class="fa-solid fa-phone"></i></span>
-                <div>
-                  <span class="contact-info-label">Phone</span>
-                  <span class="contact-info-value">+1 563 570 8240</span>
-                </div>
-                <i class="fa-solid fa-chevron-right contact-info-arrow"></i>
-              </a>
-              <a href="https://calendly.com/matt-1176/15-min-ai-app-rescue-consultation" target="_blank" class="contact-info-item">
-                <span class="contact-info-icon"><i class="fa-regular fa-calendar-check"></i></span>
-                <div>
-                  <span class="contact-info-label">Free consultation</span>
-                  <span class="contact-info-value">Book a 15-min call</span>
-                </div>
-                <i class="fa-solid fa-chevron-right contact-info-arrow"></i>
-              </a>
-            </div>
-            <div class="contact-info-note">
-              <i class="fa-solid fa-bolt"></i>
-              Typical response time: <strong>under 2 hours</strong>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -549,21 +330,93 @@
     </div>
   </section>
 
-  <!-- About / expertise -->
-  <section class="section about-section is-medium has-text-centered has-border-top">
-    <div class="container">
-      <h1 class="title is-spaced is-size-3-desktop is-size-4-mobile" style="color:#141c3a">Why Me</h1>
-      <div class="columns is-centered is-vcentered" style="margin-top:1.5rem;">
-        <div class="column is-narrow has-text-centered">
-          <img class="hero-headshot" src="img/linkedinprofile2.png" alt="Matt Brown">
-        </div>
-        <div class="column is-half has-text-left">
-          <h2 class="subtitle is-size-5-desktop has-text-weight-normal about-intro">
-            I'm Matt Brown, a software engineer with 10+ years of experience designing and building production software.
-            I've shipped enterprise analytics platforms, data pipelines, Shopify apps, and Chrome extensions for teams
-            across healthcare, insurance, and e-commerce. AI tools are great for getting started, but I'm who you call
-            when the app needs to actually work, scale, and stay secure.
+  <!-- Contact -->
+  <section id="contact" class="section is-medium has-border-top" style="background:#f7f9fd;">
+    <div class="container is-narrow">
+      <div class="columns is-centered" style="margin-bottom:2rem;">
+        <div class="column is-three-fifths has-text-centered">
+          <h1 class="title is-spaced is-size-3-desktop is-size-4-mobile" style="color:#141c3a">Book a free 15-min call</h1>
+          <h2 class="subtitle is-size-5-desktop has-text-weight-normal" style="color:#41476b">
+            Tell me what's broken. I'll tell you how to fix it.
           </h2>
+        </div>
+      </div>
+
+      <div class="columns is-centered is-variable is-6">
+        <!-- Left: Calendly + contact info -->
+        <div class="column is-half">
+          <div class="contact-info-panel">
+            <h3 class="contact-info-heading">Book a call</h3>
+            <p class="contact-info-subtext">Pick a time and I'll be there.</p>
+            <a class="button is-primary is-rounded is-medium has-text-weight-normal"
+              href="https://calendly.com/matt-1176/15-min-ai-app-rescue-consultation" target="_blank"
+              style="width:100%;margin-bottom:1.5rem;">
+              <span class="icon"><i class="fa-regular fa-calendar-check"></i></span><span>Pick a time that works for you</span>
+            </a>
+            <div class="contact-info-items">
+              <a href="mailto:matt@gosolucia.com" class="contact-info-item">
+                <span class="contact-info-icon"><i class="fa-solid fa-envelope"></i></span>
+                <div>
+                  <span class="contact-info-label">Email</span>
+                  <span class="contact-info-value">matt@gosolucia.com</span>
+                </div>
+                <i class="fa-solid fa-chevron-right contact-info-arrow"></i>
+              </a>
+              <a href="tel:+15635708240" class="contact-info-item">
+                <span class="contact-info-icon"><i class="fa-solid fa-phone"></i></span>
+                <div>
+                  <span class="contact-info-label">Phone</span>
+                  <span class="contact-info-value">+1 563 570 8240</span>
+                </div>
+                <i class="fa-solid fa-chevron-right contact-info-arrow"></i>
+              </a>
+            </div>
+            <div class="contact-info-note">
+              <i class="fa-solid fa-bolt"></i>
+              Typical response time: <strong>under 2 hours</strong>
+            </div>
+          </div>
+        </div>
+        <!-- Right: form -->
+        <div class="column is-half">
+          <p style="color:#7a82a3;font-size:0.95rem;margin-bottom:1rem;">Prefer to write first? Send me a message.</p>
+          <form class="contact-box" action="https://formspree.io/f/mwvdvnza" method="POST">
+            <div class="field">
+              <label class="label" for="name">Name</label>
+              <div class="control">
+                <input class="input" id="name" name="name" type="text" placeholder="Your name" required>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="email">Email</label>
+              <div class="control">
+                <input class="input" id="email" name="email" type="email" placeholder="you@company.com" required>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="tool">Which tool did you build with?</label>
+              <div class="control">
+                <input class="input" id="tool" name="tool"
+                  type="text" placeholder="Bolt.new, Lovable, ChatGPT, Replit, Cursor, Supabase…">
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="problem">What's going wrong?</label>
+              <div class="control">
+                <textarea class="textarea" id="problem" name="problem" rows="5"
+                  placeholder="Tell me what your app does and what's broken. Error messages and links welcome."
+                  required></textarea>
+              </div>
+            </div>
+            <div class="field" style="margin-top:1.75rem;">
+              <div class="control">
+                <button class="button is-primary is-rounded is-medium has-text-weight-normal" type="submit"
+                  style="width:100%;">
+                  <span class="icon"><i class="fa-solid fa-paper-plane"></i></span><span>Send message</span>
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -576,13 +429,13 @@
         <div class="columns level">
           <div class="column level-item">
             <h1 class="title">App falling apart?</h1>
-            <p style="color:#7a82a3;font-size:0.95rem;margin-top:0.35rem;">Get a full audit report to understand what it will take to fix your app.</p>
+            <p style="color:#7a82a3;font-size:0.95rem;margin-top:0.35rem;">Book a free 15-min call and I'll tell you exactly what it will take to fix it.</p>
           </div>
 
           <div class="column level-item"><a
               class="button is-success is-outlined is-rounded is-medium has-text-weight-normal"
               href="https://calendly.com/matt-1176/15-min-ai-app-rescue-consultation" target="_blank"><span
-                class="icon"><i class="fa-regular fa-calendar-check"></i></span><span>Book a consult</span></a></div>
+                class="icon"><i class="fa-regular fa-calendar-check"></i></span><span>Book a free call</span></a></div>
         </div>
       </div>
     </div>
@@ -622,7 +475,7 @@
         '.hero-headshot', '.hero-greeting', '.service-hero .subtitle', '.service-hero .hero-cta',
         '.tool-marquee',
         '#process .title', '#process .subtitle', '.process-card',
-        '#what-we-fix .title', '#what-we-fix .subtitle', '.fix-card',
+        '.fix-pill',
         '.testimonials .container > .title', '.testimonials .container > .subtitle',
         '.testimonials .columns .column',
         '#contact .title', '#contact .subtitle', '.contact-box',
