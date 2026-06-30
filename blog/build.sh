@@ -16,6 +16,8 @@ set -euo pipefail
 # Run from the repo root no matter where the script is called from.
 cd "$(dirname "$0")/.."
 
+BASE_URL="${BASE_URL:-https://www.aiapprescue.com}"
+
 build_one() {
   local src="$1"
   local slug
@@ -29,6 +31,7 @@ build_one() {
     --syntax-highlighting=none \
     --wrap=preserve \
     --metadata slug="$slug" \
+    --metadata base_url="$BASE_URL" \
     --output "$out"
 
   echo "Built $out"
